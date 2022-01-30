@@ -1,6 +1,20 @@
 {
   "name": "wordlette",
+  "description": "A Wordle every hour",
   "version": "0.1.0",
+  "author": "James Kroeger",
+  "contributors": [
+    "Luke El-Sabbagh"
+  ],
+  "license": "MIT",
+  "repository": {
+    "url": "https://github.com/qlyde/wordlette",
+    "type": "git"
+  },
+  "bugs": {
+    "url": "https://github.com/qlyde/wordlette/issues"
+  },
+  "main": "src/index.js",
   "private": true,
   "dependencies": {
     "@testing-library/jest-dom": "^5.16.1",
