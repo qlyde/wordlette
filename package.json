@@ -14,7 +14,6 @@
   "bugs": {
     "url": "https://github.com/qlyde/wordlette/issues"
   },
-  "main": "src/index.js",
   "private": true,
   "dependencies": {
     "@testing-library/jest-dom": "^5.16.1",
