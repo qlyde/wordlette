@@ -17,3 +17,18 @@
 .filled {
   border: 2px solid black;
 }
+
+.correct {
+  color: white;
+  background-color: #6aaa64;
+}
+
+.present {
+  color: white;
+  background-color: #c9b458;
+}
+
+.absent {
+  color: white;
+  background-color: #787c7e;
+}
