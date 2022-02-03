@@ -18,7 +18,6 @@ function App() {
     <div className="container">
       <div className="header">WORDLETTE</div>
       <hr></hr>
-      {/* <button onClick={() => setRowIndex((c) => c + 1)}>+</button> */}
       <Grid></Grid>
     </div>
   );

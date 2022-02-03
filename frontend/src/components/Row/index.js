@@ -3,7 +3,6 @@ import React, { useEffect, useRef, useState } from "react";
 
 export default function Row(props) {
   const isActive = props.isActive;
-  const [activeCell, setActiveCell] = useState(0);
   const [currGuess, _setCurrGuess] = useState("");
   const currGuessRef = useRef(currGuess);
 
@@ -14,13 +13,12 @@ export default function Row(props) {
 
   const handleKeyDown = (event) => {
     let key = event.key;
-    if (key >= "a" && key <= "z") {
+    if (key.match(/^[a-z]$/i) && currGuessRef.current.length < 5) {
       key = key.toUpperCase();
-      setCurrGuess(currGuessRef.current + key);
-    } else if (key >= "A" && key <= "Z") {
       setCurrGuess(currGuessRef.current + key);
     } else if (key === "Enter") {
     } else if (key === "Backspace") {
+      setCurrGuess(currGuessRef.current.slice(0, -1));
     }
   };
 
