@@ -17,6 +17,9 @@ export default function Row(props) {
       key = key.toUpperCase();
       setCurrGuess(currGuessRef.current + key);
     } else if (key === "Enter") {
+      if (currGuessRef.current.length === 5) {
+        props.onEnter();
+      }
     } else if (key === "Backspace") {
       setCurrGuess(currGuessRef.current.slice(0, -1));
     }
@@ -30,7 +33,7 @@ export default function Row(props) {
     return () => {
       document.removeEventListener("keydown", handleKeyDown);
     };
-  }, []);
+  });
 
   return (
     <div className="row">

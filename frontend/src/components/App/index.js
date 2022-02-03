@@ -1,5 +1,5 @@
 import "./index.css";
-import React, { useEffect, useState, useRef } from "react";
+import React from "react";
 import Grid from "../Grid";
 
 function App() {
