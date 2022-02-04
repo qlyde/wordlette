@@ -2,24 +2,52 @@ import "./index.css";
 import React, { useEffect, useRef, useState } from "react";
 
 export default function Row(props) {
+  const rowNum = props.rowNum;
   const isActive = props.isActive;
-  const [currGuess, _setCurrGuess] = useState("");
+
+  const [isComplete, _setIsComplete] = useState(false);
+  const isCompleteRef = useRef(isComplete);
+
+  const storedGuesses = localStorage.getItem("guesses");
+  const [currGuess, _setCurrGuess] = useState(
+    storedGuesses ? JSON.parse(storedGuesses).guesses[rowNum] : ""
+  );
   const currGuessRef = useRef(currGuess);
+
   const [activeCell, _setActiveCell] = useState(0);
   const activeCellRef = useRef(activeCell);
-  const [cellStates, _setCellStates] = useState([
-    "cell",
-    "cell",
-    "cell",
-    "cell",
-    "cell",
-  ]);
+
+  const storedCellStates = localStorage.getItem("cellStates");
+  const [cellStates, _setCellStates] = useState(
+    storedCellStates
+      ? JSON.parse(storedCellStates).cellStates[rowNum]
+      : ["cell", "cell", "cell", "cell", "cell"]
+  );
   const cellStatesRef = useRef(cellStates);
+
+  const setIsComplete = (data) => {
+    isCompleteRef.current = data;
+    _setIsComplete(data);
+  };
 
   const setCurrGuess = (data) => {
     currGuessRef.current = data;
     _setCurrGuess(data);
   };
+
+  useEffect(() => {
+    if (isComplete) {
+      let storedGuesses = localStorage.getItem("guesses");
+      storedGuesses = storedGuesses
+        ? JSON.parse(storedGuesses).guesses
+        : ["", "", "", "", "", ""];
+      storedGuesses[rowNum] = currGuess;
+      localStorage.setItem(
+        "guesses",
+        JSON.stringify({ guesses: storedGuesses })
+      );
+    }
+  }, [currGuess]);
 
   const setActiveCell = (data) => {
     activeCellRef.current = data;
@@ -27,12 +55,33 @@ export default function Row(props) {
   };
 
   const setCellStates = (data) => {
-    cellStates.current = data;
+    cellStatesRef.current = data;
     _setCellStates(data);
   };
 
+  useEffect(() => {
+    if (isComplete) {
+      let storedCellStates = localStorage.getItem("cellStates");
+      storedCellStates = storedCellStates
+        ? JSON.parse(storedCellStates).cellStates
+        : [
+            ["cell", "cell", "cell", "cell", "cell"],
+            ["cell", "cell", "cell", "cell", "cell"],
+            ["cell", "cell", "cell", "cell", "cell"],
+            ["cell", "cell", "cell", "cell", "cell"],
+            ["cell", "cell", "cell", "cell", "cell"],
+            ["cell", "cell", "cell", "cell", "cell"],
+          ];
+      storedCellStates[rowNum] = cellStates;
+      localStorage.setItem(
+        "cellStates",
+        JSON.stringify({ cellStates: storedCellStates })
+      );
+    }
+  }, [cellStates]);
+
   const modifyCellState = (cell, newState) => {
-    let newCellStates = cellStatesRef.current;
+    let newCellStates = [...cellStatesRef.current];
     newCellStates[cell] = newState;
     setCellStates(newCellStates);
   };
@@ -46,9 +95,7 @@ export default function Row(props) {
       setActiveCell(activeCellRef.current + 1);
     } else if (key === "Enter") {
       if (currGuessRef.current.length === 5) {
-        let solution = JSON.parse(localStorage.gameState)[
-          "solution"
-        ].toUpperCase();
+        let solution = localStorage.getItem("solution").toUpperCase();
         let incorrectGuesses = solution;
 
         // check for correct cells first
@@ -78,6 +125,11 @@ export default function Row(props) {
             modifyCellState(i, "cell absent");
           }
         }
+
+        // save to localstorage
+        setIsComplete(true);
+        setCurrGuess([...currGuessRef.current]);
+        setCellStates([...cellStatesRef.current]);
 
         props.onEnter();
       }
