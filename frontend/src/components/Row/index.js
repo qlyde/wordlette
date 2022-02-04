@@ -5,18 +5,24 @@ export default function Row(props) {
   const rowNum = props.rowNum;
   const isActive = props.isActive;
 
+  // is the row complete
   const [isComplete, _setIsComplete] = useState(false);
   const isCompleteRef = useRef(isComplete);
 
+  let keysPressed = {};
+
+  // current guess for this row
   const storedGuesses = localStorage.getItem("guesses");
   const [currGuess, _setCurrGuess] = useState(
     storedGuesses ? JSON.parse(storedGuesses).guesses[rowNum] : ""
   );
   const currGuessRef = useRef(currGuess);
 
+  // active cell in this row
   const [activeCell, _setActiveCell] = useState(0);
   const activeCellRef = useRef(activeCell);
 
+  // css cell states for this row
   const storedCellStates = localStorage.getItem("cellStates");
   const [cellStates, _setCellStates] = useState(
     storedCellStates
@@ -86,8 +92,19 @@ export default function Row(props) {
     setCellStates(newCellStates);
   };
 
+  const handleKeyUp = (event) => {
+    delete keysPressed[event.key];
+  };
+
   const handleKeyDown = (event) => {
     let key = event.key;
+    keysPressed[key] = true;
+
+    // prevent compound key detection
+    if (Object.keys(keysPressed).length !== 1) {
+      return;
+    }
+
     if (key.match(/^[a-z]$/i) && currGuessRef.current.length < 5) {
       key = key.toUpperCase();
       setCurrGuess(currGuessRef.current + key);
@@ -145,10 +162,12 @@ export default function Row(props) {
   useEffect(() => {
     if (isActive) {
       document.addEventListener("keydown", handleKeyDown);
+      document.addEventListener("keyup", handleKeyUp);
     }
 
     return () => {
       document.removeEventListener("keydown", handleKeyDown);
+      document.removeEventListener("keyup", handleKeyUp);
     };
   });
 
