@@ -5,19 +5,7 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-}
-
-h1 {
-  margin: 10px 0px 10px;
-}
-
-hr {
-  background-color: #d3d6da;
-  height: 1px;
-  border: none;
-}
-
-#root {
-  display: flex;
-  justify-content: center;
+  background-color: #121213 !important;
+  width: 100vw;
+  height: 100vh;
 }

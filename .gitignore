@@ -1,1 +1,5 @@
-/frontend/node_modules
+# npm
+node_modules
+
+# vscode
+settings.json
