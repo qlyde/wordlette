@@ -28,6 +28,9 @@ const Keyboard = ({
     const currentWord = boardState[currentRowIdx];
     if (currentWord.length === 5) {
       // TODO: check if valid word
+      setBoardState((curr) =>
+        curr.map((word, idx) => (idx === currentRowIdx ? currentWord : word))
+      );
       setCurrentRowIdx((curr) => curr + 1);
     }
   };

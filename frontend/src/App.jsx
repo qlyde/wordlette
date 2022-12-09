@@ -17,7 +17,7 @@ const App = () => {
   const [gameStatus, setGameStatus] = React.useState(
     localStorage.getItem("gameStatus") ?? "IN_PROGRESS"
   );
-  const [answer, setAnswer] = React.useState("REACT");
+  const [answer, setAnswer] = React.useState("POOLS");
 
   React.useEffect(() => {
     const savedBoardState = boardState.map((word, idx) =>
@@ -46,7 +46,11 @@ const App = () => {
     >
       <h1 className="mt-3 text-light fs-2">Wordlette</h1>
       <hr className="mt-2 mb-0 text-light w-100" />
-      <Grid boardState={boardState} />
+      <Grid
+        boardState={boardState}
+        currentRowIdx={currentRowIdx}
+        answer={answer}
+      />
       <Keyboard
         boardState={boardState}
         setBoardState={setBoardState}
