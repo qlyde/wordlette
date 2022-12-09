@@ -30,35 +30,44 @@ const Keyboard = ({
   }, [boardState, currentRowIdx]);
 
   const onKeyClick = (key) => {
-    const currentWord = boardState[currentRowIdx];
-    if (currentWord.length < 5) {
-      setBoardState((curr) =>
-        curr.map((word, idx) =>
-          idx === currentRowIdx ? currentWord + key : word
-        )
-      );
+    if (gameStatus === "IN_PROGRESS") {
+      const currentWord = boardState[currentRowIdx];
+      if (currentWord.length < 5) {
+        setBoardState((curr) =>
+          curr.map((word, idx) =>
+            idx === currentRowIdx ? currentWord + key : word
+          )
+        );
+      }
     }
   };
 
   const onEnterClick = () => {
-    const currentWord = boardState[currentRowIdx];
-    if (currentWord.length === 5) {
-      // TODO: check if valid word
-      setCurrentRowIdx((curr) => curr + 1);
-      setBoardState((curr) =>
-        curr.map((word, idx) => (idx === currentRowIdx ? currentWord : word))
-      );
+    if (gameStatus === "IN_PROGRESS") {
+      const currentWord = boardState[currentRowIdx];
+      if (currentWord.length === 5) {
+        // TODO: check if valid word
+        if (answer === currentWord) {
+          setGameStatus("COMPLETE");
+        }
+        setCurrentRowIdx((curr) => curr + 1);
+        setBoardState((curr) =>
+          curr.map((word, idx) => (idx === currentRowIdx ? currentWord : word))
+        );
+      }
     }
   };
 
   const onBackspaceClick = () => {
-    const currentWord = boardState[currentRowIdx];
-    if (currentWord.length > 0) {
-      setBoardState((curr) =>
-        curr.map((word, idx) =>
-          idx === currentRowIdx ? currentWord.slice(0, -1) : word
-        )
-      );
+    if (gameStatus === "IN_PROGRESS") {
+      const currentWord = boardState[currentRowIdx];
+      if (currentWord.length > 0) {
+        setBoardState((curr) =>
+          curr.map((word, idx) =>
+            idx === currentRowIdx ? currentWord.slice(0, -1) : word
+          )
+        );
+      }
     }
   };
 
