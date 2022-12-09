@@ -13,6 +13,22 @@ const Keyboard = ({
   setGameStatus,
   answer,
 }) => {
+  React.useEffect(() => {
+    const handleKeydown = (event) => {
+      const keyUpper = event.key.toUpperCase();
+      if (keyUpper === "BACKSPACE") {
+        onBackspaceClick();
+      } else if (keyUpper === "ENTER") {
+        onEnterClick();
+      } else if (keyUpper.length === 1 && keyUpper >= "A" && keyUpper <= "Z") {
+        onKeyClick(keyUpper);
+      }
+    };
+
+    window.addEventListener("keydown", handleKeydown);
+    return () => window.removeEventListener("keydown", handleKeydown);
+  }, [boardState, currentRowIdx]);
+
   const onKeyClick = (key) => {
     const currentWord = boardState[currentRowIdx];
     if (currentWord.length < 5) {
@@ -28,10 +44,10 @@ const Keyboard = ({
     const currentWord = boardState[currentRowIdx];
     if (currentWord.length === 5) {
       // TODO: check if valid word
+      setCurrentRowIdx((curr) => curr + 1);
       setBoardState((curr) =>
         curr.map((word, idx) => (idx === currentRowIdx ? currentWord : word))
       );
-      setCurrentRowIdx((curr) => curr + 1);
     }
   };
 

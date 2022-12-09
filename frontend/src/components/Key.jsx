@@ -33,7 +33,7 @@ const Key = ({ inner, onClick, status, paddingX }) => {
 Key.propTypes = {
   inner: PropTypes.oneOfType([PropTypes.string, PropTypes.element]).isRequired,
   onClick: PropTypes.func.isRequired,
-  status: PropTypes.string.isRequired,
+  status: PropTypes.string,
   paddingX: PropTypes.number,
 };
 
