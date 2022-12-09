@@ -23,7 +23,6 @@ const App = () => {
     const savedBoardState = boardState.map((word, idx) =>
       word.length === 5 && idx < currentRowIdx ? word : ""
     );
-    console.log(savedBoardState);
     localStorage.setItem("boardState", JSON.stringify(savedBoardState));
   }, [boardState]);
 

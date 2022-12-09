@@ -2,12 +2,19 @@ import React from "react";
 import PropTypes from "prop-types";
 import { Button } from "react-bootstrap";
 
-const Key = ({ inner, onClick, paddingX }) => {
+const Key = ({ inner, onClick, status, paddingX }) => {
   return (
     <Button
       onClick={onClick}
       style={{
-        backgroundColor: "#818384",
+        backgroundColor:
+          status === "PENDING" || status === undefined
+            ? "#818384"
+            : status === "INCORRECT"
+            ? "rgb(58,58,60)"
+            : status === "CORRECT"
+            ? "rgb(83,141,78)"
+            : "rgb(181,159,59)",
         border: "none",
         height: "58px",
         minWidth: "43px",
@@ -26,6 +33,7 @@ const Key = ({ inner, onClick, paddingX }) => {
 Key.propTypes = {
   inner: PropTypes.oneOfType([PropTypes.string, PropTypes.element]).isRequired,
   onClick: PropTypes.func.isRequired,
+  status: PropTypes.string.isRequired,
   paddingX: PropTypes.number,
 };
 

@@ -46,40 +46,182 @@ const Keyboard = ({
     }
   };
 
+  const getStatus = (key) => {
+    // "PENDING", "CORRECT", "MISPLACED", "INCORRECT"
+    let isSubmitted = false;
+    const submittedPositions = [];
+
+    for (let i = 0; i < 5; i++) {
+      const submittedWord = boardState[i];
+      if (
+        submittedWord.includes(key) &&
+        submittedWord.length === 5 &&
+        i < currentRowIdx
+      ) {
+        isSubmitted = true;
+        let index = submittedWord.indexOf(key);
+        while (index > -1) {
+          submittedPositions.push(index);
+          index = submittedWord.indexOf(key, index + 1);
+        }
+      }
+    }
+
+    if (isSubmitted) {
+      for (const idx of submittedPositions) {
+        if (answer[idx] === key) {
+          return "CORRECT";
+        }
+      }
+
+      if (answer.includes(key)) {
+        return "MISPLACED";
+      }
+
+      return "INCORRECT";
+    }
+
+    return "PENDING";
+  };
+
   return (
     <div className="d-flex flex-column align-items-center gap-2 mb-2">
       <div className="d-flex" style={{ gap: "6px" }}>
-        <Key inner="Q" onClick={() => onKeyClick("Q")} />
-        <Key inner="W" onClick={() => onKeyClick("W")} />
-        <Key inner="E" onClick={() => onKeyClick("E")} />
-        <Key inner="R" onClick={() => onKeyClick("R")} />
-        <Key inner="T" onClick={() => onKeyClick("T")} />
-        <Key inner="Y" onClick={() => onKeyClick("Y")} />
-        <Key inner="U" onClick={() => onKeyClick("U")} />
-        <Key inner="I" onClick={() => onKeyClick("I")} />
-        <Key inner="O" onClick={() => onKeyClick("O")} />
-        <Key inner="P" onClick={() => onKeyClick("P")} />
+        <Key
+          inner="Q"
+          onClick={() => onKeyClick("Q")}
+          status={getStatus("Q")}
+        />
+        <Key
+          inner="W"
+          onClick={() => onKeyClick("W")}
+          status={getStatus("W")}
+        />
+        <Key
+          inner="E"
+          onClick={() => onKeyClick("E")}
+          status={getStatus("E")}
+        />
+        <Key
+          inner="R"
+          onClick={() => onKeyClick("R")}
+          status={getStatus("R")}
+        />
+        <Key
+          inner="T"
+          onClick={() => onKeyClick("T")}
+          status={getStatus("T")}
+        />
+        <Key
+          inner="Y"
+          onClick={() => onKeyClick("Y")}
+          status={getStatus("Y")}
+        />
+        <Key
+          inner="U"
+          onClick={() => onKeyClick("U")}
+          status={getStatus("U")}
+        />
+        <Key
+          inner="I"
+          onClick={() => onKeyClick("I")}
+          status={getStatus("I")}
+        />
+        <Key
+          inner="O"
+          onClick={() => onKeyClick("O")}
+          status={getStatus("O")}
+        />
+        <Key
+          inner="P"
+          onClick={() => onKeyClick("P")}
+          status={getStatus("P")}
+        />
       </div>
       <div className="d-flex" style={{ gap: "6px" }}>
-        <Key inner="A" onClick={() => onKeyClick("A")} />
-        <Key inner="S" onClick={() => onKeyClick("S")} />
-        <Key inner="D" onClick={() => onKeyClick("D")} />
-        <Key inner="F" onClick={() => onKeyClick("F")} />
-        <Key inner="G" onClick={() => onKeyClick("G")} />
-        <Key inner="H" onClick={() => onKeyClick("H")} />
-        <Key inner="J" onClick={() => onKeyClick("J")} />
-        <Key inner="K" onClick={() => onKeyClick("K")} />
-        <Key inner="L" onClick={() => onKeyClick("L")} />
+        <Key
+          inner="A"
+          onClick={() => onKeyClick("A")}
+          status={getStatus("A")}
+        />
+        <Key
+          inner="S"
+          onClick={() => onKeyClick("S")}
+          status={getStatus("S")}
+        />
+        <Key
+          inner="D"
+          onClick={() => onKeyClick("D")}
+          status={getStatus("D")}
+        />
+        <Key
+          inner="F"
+          onClick={() => onKeyClick("F")}
+          status={getStatus("F")}
+        />
+        <Key
+          inner="G"
+          onClick={() => onKeyClick("G")}
+          status={getStatus("G")}
+        />
+        <Key
+          inner="H"
+          onClick={() => onKeyClick("H")}
+          status={getStatus("H")}
+        />
+        <Key
+          inner="J"
+          onClick={() => onKeyClick("J")}
+          status={getStatus("J")}
+        />
+        <Key
+          inner="K"
+          onClick={() => onKeyClick("K")}
+          status={getStatus("K")}
+        />
+        <Key
+          inner="L"
+          onClick={() => onKeyClick("L")}
+          status={getStatus("L")}
+        />
       </div>
       <div className="d-flex" style={{ gap: "6px" }}>
         <Key inner="ENTER" onClick={onEnterClick} paddingX={11} />
-        <Key inner="Z" onClick={() => onKeyClick("Z")} />
-        <Key inner="X" onClick={() => onKeyClick("X")} />
-        <Key inner="C" onClick={() => onKeyClick("C")} />
-        <Key inner="V" onClick={() => onKeyClick("V")} />
-        <Key inner="B" onClick={() => onKeyClick("B")} />
-        <Key inner="N" onClick={() => onKeyClick("N")} />
-        <Key inner="M" onClick={() => onKeyClick("M")} />
+        <Key
+          inner="Z"
+          onClick={() => onKeyClick("Z")}
+          status={getStatus("Z")}
+        />
+        <Key
+          inner="X"
+          onClick={() => onKeyClick("X")}
+          status={getStatus("X")}
+        />
+        <Key
+          inner="C"
+          onClick={() => onKeyClick("C")}
+          status={getStatus("C")}
+        />
+        <Key
+          inner="V"
+          onClick={() => onKeyClick("V")}
+          status={getStatus("V")}
+        />
+        <Key
+          inner="B"
+          onClick={() => onKeyClick("B")}
+          status={getStatus("B")}
+        />
+        <Key
+          inner="N"
+          onClick={() => onKeyClick("N")}
+          status={getStatus("N")}
+        />
+        <Key
+          inner="M"
+          onClick={() => onKeyClick("M")}
+          status={getStatus("M")}
+        />
         <Key
           inner={<BsBackspace size={20} strokeWidth={0.4} />}
           onClick={onBackspaceClick}
