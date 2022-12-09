@@ -1,8 +1,8 @@
 import React from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { Container } from "react-bootstrap";
 
 import Grid from "./components/Grid";
+import Keyboard from "./components/Keyboard";
 
 const App = () => {
   const [boardState, setBoardState] = React.useState(
@@ -20,7 +20,11 @@ const App = () => {
   const [answer, setAnswer] = React.useState("REACT");
 
   React.useEffect(() => {
-    localStorage.setItem("boardState", JSON.stringify(boardState));
+    const savedBoardState = boardState.map((word, idx) =>
+      word.length === 5 && idx < currentRowIdx ? word : ""
+    );
+    console.log(savedBoardState);
+    localStorage.setItem("boardState", JSON.stringify(savedBoardState));
   }, [boardState]);
 
   React.useEffect(() => {
@@ -32,10 +36,18 @@ const App = () => {
   }, [gameStatus]);
 
   return (
-    <Container className="d-flex flex-column justify-content-center align-items-center">
-      <h1 className="mt-5 text-light">Wordlette</h1>
-      <hr className="mb-5 text-light w-100" />
-      <Grid
+    <div
+      style={{
+        backgroundColor: "#121213",
+        width: "100vw",
+        height: "100vh",
+      }}
+      className="d-flex flex-column justify-content-center align-items-center"
+    >
+      <h1 className="mt-3 text-light fs-2">Wordlette</h1>
+      <hr className="mt-2 mb-0 text-light w-100" />
+      <Grid boardState={boardState} />
+      <Keyboard
         boardState={boardState}
         setBoardState={setBoardState}
         currentRowIdx={currentRowIdx}
@@ -44,7 +56,7 @@ const App = () => {
         setGameStatus={setGameStatus}
         answer={answer}
       />
-    </Container>
+    </div>
   );
 };
 

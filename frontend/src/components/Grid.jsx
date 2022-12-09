@@ -4,71 +4,21 @@ import { Container } from "react-bootstrap";
 
 import Row from "./Row";
 
-const Grid = ({
-  boardState,
-  setBoardState,
-  currentRowIdx,
-  setCurrentRowIdx,
-  gameStatus,
-  setGameStatus,
-  answer,
-}) => {
+const Grid = ({ boardState }) => {
   return (
-    <Container className="mt-5" style={{ width: "330px" }}>
-      <Row
-        idx={0}
-        currentRowIdx={currentRowIdx}
-        setCurrentRowIdx={setCurrentRowIdx}
-        boardState={boardState}
-        setBoardState={setBoardState}
-      />
-      <Row
-        idx={1}
-        currentRowIdx={currentRowIdx}
-        setCurrentRowIdx={setCurrentRowIdx}
-        boardState={boardState}
-        setBoardState={setBoardState}
-      />
-      <Row
-        idx={2}
-        currentRowIdx={currentRowIdx}
-        setCurrentRowIdx={setCurrentRowIdx}
-        boardState={boardState}
-        setBoardState={setBoardState}
-      />
-      <Row
-        idx={3}
-        currentRowIdx={currentRowIdx}
-        setCurrentRowIdx={setCurrentRowIdx}
-        boardState={boardState}
-        setBoardState={setBoardState}
-      />
-      <Row
-        idx={4}
-        currentRowIdx={currentRowIdx}
-        setCurrentRowIdx={setCurrentRowIdx}
-        boardState={boardState}
-        setBoardState={setBoardState}
-      />
-      <Row
-        idx={5}
-        currentRowIdx={currentRowIdx}
-        setCurrentRowIdx={setCurrentRowIdx}
-        boardState={boardState}
-        setBoardState={setBoardState}
-      />
+    <Container className="my-auto" style={{ width: "330px" }}>
+      <Row idx={0} boardState={boardState} />
+      <Row idx={1} boardState={boardState} />
+      <Row idx={2} boardState={boardState} />
+      <Row idx={3} boardState={boardState} />
+      <Row idx={4} boardState={boardState} />
+      <Row idx={5} boardState={boardState} />
     </Container>
   );
 };
 
 Grid.propTypes = {
   boardState: PropTypes.arrayOf(PropTypes.string).isRequired,
-  setBoardState: PropTypes.func.isRequired,
-  currentRowIdx: PropTypes.number.isRequired,
-  setCurrentRowIdx: PropTypes.func.isRequired,
-  gameStatus: PropTypes.string.isRequired,
-  setGameStatus: PropTypes.func.isRequired,
-  answer: PropTypes.string.isRequired,
 };
 
 export default Grid;
